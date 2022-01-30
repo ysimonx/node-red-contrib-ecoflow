@@ -1,0 +1,30 @@
+{
+    "name" : "node-red-contrib-ecoflow",
+    "version" : "0.9.0",
+    "description" : "Node-RED node to interface with Ecoflow API",
+    "dependencies": {
+      "https" : "^1.0.0",
+      "urllib" : "^2.13.0"
+    },
+    "engines":
+    {
+      "node": ">=5.0.0"
+    },
+    "repository" :
+      { "type" : "git"
+      , "url" : "https://github.com/ysimonx/node-red-contrib-ecoflow.git"
+    },
+    "license": "MIT",
+    "keywords": [ "node-red", "ecoflow", "delta pro", "power station", "battery"],
+    "node-red" : {
+      "nodes": {
+        "ecoflow-connect": "ecoflow-connect.js"
+      }
+    },
+    "author": {
+      "name": "Yannick Simon",
+      "email": "yannick.simon@gmail.com",
+      "url": "https://www.kysoe.com"
+    }
+}
+    

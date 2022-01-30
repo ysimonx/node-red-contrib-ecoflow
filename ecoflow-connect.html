@@ -1,0 +1,56 @@
+<script type="text/javascript">
+  RED.nodes.registerType('ecoflow-credential',{
+      category: 'config',
+      defaults: {
+          serial_number: {value:"serial_number",required:true},
+          api_key: {value:"api_key",required:true},
+      },
+      label: function() {
+          return "credentials for " + this.serial_number;
+      }
+  });
+</script>
+
+<script type="text/html" data-template-name="ecoflow-credential">
+  <div class="form-row">
+      <label for="node-config-input-serial_number"><i class="fa fa-bookmark"></i> serial_number</label>
+      <input type="text" id="node-config-input-serial_number">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-api_key"><i class="fa fa-bookmark"></i> api_key</label>
+      <input type="text" id="node-config-input-api_key">
+  </div>
+</script>
+
+
+
+
+<script type="text/javascript">
+  RED.nodes.registerType("ecoflow-connect", {
+    category: "input",
+    color: "#ffcc66",
+    defaults: {
+      server: {value:"", type:"ecoflow-credential", required: true},
+      command: { value:"getDeviceInfo" },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "feed.png",
+    label: function() {
+      return "ecoflow-connect";
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="ecoflow-connect">
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i> Credentials</label>
+        <input type="text" id="node-input-server" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-command"><i class="fa fa-terminal"></i> Command</label>
+        <select id="node-input-command">
+            <option value="getDeviceInfo">Device Info</option>
+        </select>
+    </div>
+</script>
