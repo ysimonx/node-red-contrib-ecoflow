@@ -7,10 +7,11 @@ var https = require('https'),
 class Ecoflow {
 
 
-    constructor(param_serial_number, param_api_key) {
+    constructor(param_serial_number, param_app_key, param_api_secret_key) {
 
         this.serial_number = param_serial_number;
-        this.api_key = param_api_key;
+        this.app_key = param_app_key;
+        this.secret_key = param_api_secret_key;
 
     }
 
@@ -20,19 +21,19 @@ class Ecoflow {
 
         return new Promise((resolve, reject) => {
            
-       // https://iot1.ecoflow.com/api/v1/devices/queryDeviceData?sn=xxxxxxx&appkey=cccccccccccc
+        // https://api.ecoflow.com/iot-service/open/api/device/queryDeviceQuota?sn=R331ZEB4ZE8Q0464
 
-        var url =  "/api/v1/devices/queryDeviceData?sn=" + this.serial_number + "&appkey=" + this.api_key;
+        var url =  "/iot-service/open/api/device/queryDeviceQuota?sn=" + this.serial_number ;
     
         var options = {
             method: 'GET',
-            host: "iot1.ecoflow.com",
+            host: "api.ecoflow.com",
             port: 443,
             path: url,
             headers: {
-    
-               
-    
+                "Content-Type": "application/json",
+                "appKey": this.app_key,
+                "secretKey": this.secret_key
             }   
         };
     

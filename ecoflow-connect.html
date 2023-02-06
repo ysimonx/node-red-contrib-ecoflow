@@ -3,7 +3,8 @@
       category: 'config',
       defaults: {
           serial_number: {value:"serial_number",required:true},
-          api_key: {value:"api_key",required:true},
+          app_key: {value:"app_key",required:true},
+          secret_key: {value:"app_key",required:true},
       },
       label: function() {
           return "credentials for " + this.serial_number;
@@ -17,8 +18,12 @@
       <input type="text" id="node-config-input-serial_number">
   </div>
   <div class="form-row">
-      <label for="node-config-input-api_key"><i class="fa fa-bookmark"></i> api_key</label>
-      <input type="text" id="node-config-input-api_key">
+      <label for="node-config-input-app_key"><i class="fa fa-bookmark"></i> app_key</label>
+      <input type="text" id="node-config-input-app_key">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-secret_key"><i class="fa fa-bookmark"></i> secret_key</label>
+    <input type="text" id="node-config-input-secret_key">
   </div>
 </script>
 

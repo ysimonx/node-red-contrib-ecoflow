@@ -13,7 +13,8 @@ module.exports = function(RED) {
 
         var node = this;
         this.serial_number = n.serial_number;
-        this.api_key = n.api_key;
+        this.app_key = n.app_key;
+        this.secret_key = n.secret_key;
         
     }
 
@@ -30,12 +31,13 @@ module.exports = function(RED) {
         node.credentials = RED.nodes.getNode(n.server);
 
         node.serial_number = node.credentials.serial_number;
-        node.api_key = node.credentials.api_key;
+        node.app_key = node.credentials.app_key;
+        node.secret_key = node.credentials.secret_key;
         
 
         function fetchData() {
            
-            var ecoflow =  new Ecoflow(node.serial_number,node.api_key);
+            var ecoflow =  new Ecoflow(node.serial_number,node.app_key, node.secret_key);
 
            
             ecoflow.getDeviceInfo()
