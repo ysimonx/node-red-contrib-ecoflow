@@ -3,7 +3,12 @@ node red extension for ecoflow api
 
 ![Alt text](node-red-1.png "Ecoflow-connect")
 
-![Alt text](node-red-2.png "Ecoflow-credentials")
+In credentials settings, you must provide : 
+- serial number
+- app key
+- secret key
+
+You should ask ecoflow's support for these informations
 
 
 Exemple of returned data :
