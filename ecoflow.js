@@ -23,7 +23,7 @@ class Ecoflow {
            
         // https://api.ecoflow.com/iot-service/open/api/device/queryDeviceQuota?sn=R331ZEB4ZE8Q0464
 
-        var url =  "/iot-service/open/api/device/queryDeviceQuota?sn=" + this.serial_number ;
+        var url =  "/iot-service/open/api/device/queryDeviceQuota?sn=" + this.serial_number;
     
         var options = {
             method: 'GET',
@@ -37,7 +37,6 @@ class Ecoflow {
             }   
         };
     
-        
         var msg = {};
         var request = https.request(options, function(res) {
             res.setEncoding('utf8');
