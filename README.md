@@ -27,3 +27,6 @@ Exemple of returned data :
   },
   "error": ""
 }
+
+
+by [Yannick Simon](https://yannicksimon.fr)
