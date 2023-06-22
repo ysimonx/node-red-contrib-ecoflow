@@ -7,7 +7,7 @@ const {  Ecoflow } = require("./ecoflow.js");
 function main() {
 
     
-        var device =  new Ecoflow("SERIALXXXX","APPKEYYYYYY", "SECRETKEYZZZZZZ");
+        var device =  new Ecoflow("SERIALXXXX","Email", "Password");
 
       
         device.getDeviceInfo()

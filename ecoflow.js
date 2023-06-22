@@ -1,7 +1,6 @@
 // Ecoflow.js
-
-var https = require('https'),
-    urllib = require("url");
+const ecoflowmqttcredentials = require("ecoflow_mqtt_credentials");
+const mqtt = require("mqtt");
 
 // constructor function for the Cat class
 class Ecoflow {
@@ -15,68 +14,64 @@ class Ecoflow {
 
     }
 
-    getDeviceInfo() {
+    sendCmd(node,msg) {
+        if((typeof node.worker !== 'undefined') && (typeof node.mqttclient !== 'undefined') && (typeof node.mqttsettings !== 'undefined')) {
+            node.mqttclient.publish(node.mqttsettings.mqtt_topics[1].topic+"/set",JSON.stringify(msg.payload));
+        }
+    }
 
-        var self=this;
+    connectDevice(node) {
+        const self=this;
 
-        return new Promise((resolve, reject) => {
-           
-        // https://api.ecoflow.com/iot-service/open/api/device/queryDeviceQuota?sn=R331ZEB4ZE8Q0464
+        if(typeof node.worker == 'undefined') {
+            node.worker = async function() {
 
-        var url =  "/iot-service/open/api/device/queryDeviceQuota?sn=" + this.serial_number;
-    
-        var options = {
-            method: 'GET',
-            host: "api.ecoflow.com",
-            port: 443,
-            path: url,
-            headers: {
-                "Content-Type": "application/json",
-                "appKey": this.app_key,
-                "secretKey": this.secret_key
-            }   
-        };
-    
-        var msg = {};
-        var request = https.request(options, function(res) {
-            res.setEncoding('utf8');
-    
-            
-            msg.statusCode = res.statusCode;
-            msg.payload = "";
-    
-            res.on("data", function(chunk) {
-                msg.payload += chunk;
-            
-            });
-    
-            res.on("end",function() {
-    
-                
-                try {
-                    msg.payload = JSON.parse(msg.payload); 
-                    msg.error = "";
-                    resolve(msg);
-                    // cb_ok(context, msg);
+            let registers = {};
+
+            const mqttsettings = await ecoflowmqttcredentials.retrieve({
+                email:self.app_key,
+                password:self.secret_key,
+                serial_number:self.serial_number
+            }); 
+
+            node.mqttsettings = mqttsettings;
+
+            const mqttoptions = {
+                port: mqttsettings.mqtt_port,
+                host: mqttsettings.mqtt_server,
+                protocol: mqttsettings.mqtt_protocol,
+                username:mqttsettings.mqtt_username,
+                password:mqttsettings.mqtt_password,
+                clientId:mqttsettings.mqtt_client_ids[0]
+              }
+
+            const client = mqtt.connect(mqttoptions);
+            node.mqttclient = client;
+
+            client.subscribe(mqttsettings.mqtt_topics[0].topic);
+
+            client.subscribe(mqttsettings.mqtt_topics[1].topic+"/set");
+          
+            client.on("message", function (topic, payload) {
+                let msg = {
+                    payload:JSON.parse(payload),
+                    topic:topic
                 }
-            
-                catch(e) { 
-                    
-                    // cb_error(msg);
-                    msg.error= e;
-                    reject(msg);
+                if(topic == mqttsettings.mqtt_topics[0].topic) {
+                    if(msg.payload.moduleType == node.moduleType) {
+                        for (const [key, value] of Object.entries(msg.payload.params)) {
+                            registers[key] = value;
+                        }
+                        msg.payload = registers;
+                        node.send([msg]);
+                    }
+                } else {
+                        node.send([,msg]);
                 }
             });
-        });
-    
-        request.on("error", function(err) {
-            msg.error = err;
-            reject(msg);
-        });
-    
-       
-        request.end();
-        })
+            }
+        }
+        node.worker();
     }
 
     

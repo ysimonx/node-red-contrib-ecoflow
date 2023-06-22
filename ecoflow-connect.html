@@ -18,11 +18,11 @@
       <input type="text" id="node-config-input-serial_number">
   </div>
   <div class="form-row">
-      <label for="node-config-input-app_key"><i class="fa fa-bookmark"></i> app_key</label>
+      <label for="node-config-input-app_key"><i class="fa fa-bookmark"></i> email</label>
       <input type="text" id="node-config-input-app_key">
   </div>
   <div class="form-row">
-    <label for="node-config-input-secret_key"><i class="fa fa-bookmark"></i> secret_key</label>
+    <label for="node-config-input-secret_key"><i class="fa fa-bookmark"></i> password</label>
     <input type="text" id="node-config-input-secret_key">
   </div>
 </script>
@@ -39,7 +39,7 @@
       command: { value:"getDeviceInfo" },
     },
     inputs: 1,
-    outputs: 1,
+    outputs: 2,
     icon: "feed.png",
     label: function() {
       return "ecoflow-connect";
@@ -53,9 +53,42 @@
         <input type="text" id="node-input-server" />
     </div>
     <div class="form-row">
-        <label for="node-input-command"><i class="fa fa-terminal"></i> Command</label>
+        <label for="node-input-command"><i class="fa fa-terminal"></i> Module</label>
         <select id="node-input-command">
-            <option value="getDeviceInfo">Device Info</option>
+            <option value="1">1 - Device Info (PD)</option>
+            <option value="2">2 - EMS (bmsEMS)</option>
+            <option value="3">3 - </option>
+            <option value="4">4 - </option>
+            <option value="5">5 - </option>
         </select>
     </div>
 </script>
+<script type="text/x-red" data-help-name="ecoflow-connect">
+  <p><strong>Allows to interact with an Ecoflow PowerStation using APP Credentials.</strong></p>
+  <h2>Input</h2>
+  <p>
+    JSON Object is send to device as controlle command (settings change).
+    Sample to turn AC plug on:<br/>
+    <pre>
+      {
+        "from": "Android",
+        "id": "116632420",
+        "moduleType": 5,
+        "operateType": "acOutCfg",
+        "params": {
+            "out_voltage": -1,
+            "out_freq": 255,
+            "xboost": 255,
+            "enabled": 1
+        },
+        "version": "1.0"
+    }
+    </pre>
+  </p>
+  <h2>Output</h2>
+  <h3>Output 1</h3>
+  <p>Status Messages from selected Module (some seem to be inactive while device is idle)</p>
+  <h3>Output 2</h3>
+  <p>Configuration changes. Usefull to monitor what APP is doing and to find right <code>Input</code> values.</p>
+</script>
+

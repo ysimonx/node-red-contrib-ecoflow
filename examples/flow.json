@@ -1,0 +1,90 @@
+[
+    {
+        "id": "7e6423f5e285a05f",
+        "type": "tab",
+        "label": "Ecoflow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "eccee88f54caf588",
+        "type": "ecoflow-connect",
+        "z": "7e6423f5e285a05f",
+        "server": "4fd8edba88603fcb",
+        "command": "1",
+        "x": 480,
+        "y": 120,
+        "wires": [
+            [
+                "be0bdddcb47d2861"
+            ],
+            [
+                "31271cf8cef5a0d4"
+            ]
+        ]
+    },
+    {
+        "id": "f4a6b7ed2437ae06",
+        "type": "inject",
+        "z": "7e6423f5e285a05f",
+        "name": "SwitchACOn",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"from\":\"Android\",\"id\":\"116632420\",\"moduleType\":5,\"operateType\":\"acOutCfg\",\"params\":{\"out_voltage\":-1,\"out_freq\":255,\"xboost\":255,\"enabled\":1},\"version\":\"1.0\"}",
+        "payloadType": "json",
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "eccee88f54caf588"
+            ]
+        ]
+    },
+    {
+        "id": "be0bdddcb47d2861",
+        "type": "debug",
+        "z": "7e6423f5e285a05f",
+        "name": "Status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "31271cf8cef5a0d4",
+        "type": "debug",
+        "z": "7e6423f5e285a05f",
+        "name": "Config Changes",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 160,
+        "wires": []
+    }
+]
