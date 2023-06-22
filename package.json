@@ -1,30 +1,36 @@
 {
-    "name" : "node-red-contrib-ecoflow",
-    "version" : "0.9.7",
-    "description" : "Node-RED node to interface with Ecoflow API",
+    "name": "node-red-contrib-ecoflow",
+    "version": "0.9.8",
+    "description": "Node-RED node to interface with Ecoflow API",
     "dependencies": {
-      "https" : "^1.0.0",
-      "urllib" : "^2.13.0"
+        "ecoflow_mqtt_credentials": "^1.0.1",
+        "https": "^1.0.0",
+        "mqtt": "^4.3.7",
+        "urllib": "^2.13.0"
     },
-    "engines":
-    {
-      "node": ">=5.0.0"
+    "engines": {
+        "node": ">=5.0.0"
     },
-    "repository" :
-      { "type" : "git"
-      , "url" : "https://github.com/ysimonx/node-red-contrib-ecoflow.git"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ysimonx/node-red-contrib-ecoflow.git"
     },
     "license": "MIT",
-    "keywords": [ "node-red", "ecoflow", "delta pro", "power station", "battery"],
-    "node-red" : {
-      "nodes": {
-        "ecoflow-connect": "ecoflow-connect.js"
-      }
+    "keywords": [
+        "node-red",
+        "ecoflow",
+        "delta pro",
+        "power station",
+        "battery"
+    ],
+    "node-red": {
+        "nodes": {
+            "ecoflow-connect": "ecoflow-connect.js"
+        }
     },
     "author": {
-      "name": "Yannick Simon",
-      "email": "yannick.simon@gmail.com",
-      "url": "https://www.kysoe.com"
+        "name": "Yannick Simon",
+        "email": "yannick.simon@gmail.com",
+        "url": "https://www.kysoe.com"
     }
 }
-    
